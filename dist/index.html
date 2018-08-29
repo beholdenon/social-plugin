@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <title>Social Plugin</title>
+</head>
+
+<body>
+    <a href="#" social="share-fb">Facebook</a>
+    <br><br>
+    <a href="#" social="share-twitter">Twitter</a>
+    <br><br>
+    <a href="#" social="share-instagram">Instagram</a>
+    <br><br>
+    <a href="#" social="share-pinterest">Pinterest</a>
+
+    <script src="https://code.jquery.com/jquery-3.3.1.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>
+    <script src="js/social_plugin.js"></script>
+    <script>
+        var social = bl.social;
+        social.init({
+            baseURL: "http://www.bloomingdales.com",
+            facebook: {
+                title: "Facebook title",
+                description: "Facebook description goes here",
+                image: "test.jpg"
+            },
+            twitter: {
+                title: "Here is a twitter title"
+            }
+        });
+    </script>
+
+</body>
+
+</html>
