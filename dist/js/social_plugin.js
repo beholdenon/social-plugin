@@ -2,18 +2,13 @@ window.bl = window.bl || {};
 
 (function(ns) {
   
-    // private variables
-
     //plugin defaults
     var options = {
         // defeault cat id
-        baseURL: 'http://' + window.location.host + window.location.pathname,
-        baseAssetsURL: 'http://' + window.location.host + window.location.pathname,
+        shareURL: 'http://' + window.location.host + window.location.pathname,
         facebook: {
-            attribute: "social-share-fb",
             title: "",
-            description: "",
-            image: ""
+            description: ""
         },
         twitter: {
             title: ""
@@ -41,50 +36,61 @@ window.bl = window.bl || {};
         initPinterest();
         initInstagram();
     }
-
-    // initial build
-    function share() {
-
-    }
     function initFacebook() {
         var url = 'https://www.facebook.com/sharer/sharer.php';
-        url += '?u=' + encodeURIComponent(options.baseURL);
+        url += '?u=' + encodeURIComponent(options.shareURL);
         url += '&quote=' + encodeURIComponent(options.facebook.title + " " + options.facebook.description);
 
-        $("[social=share-fb]").each(function(index) {
-            $(this).attr("href", url);
-        });
+        // get elements with social attribute value
+        var el = document.querySelectorAll('[social="share-fb"]');
 
+        // loop through elements and set the href attribute
+        forEach(el, function (index, value) {
+            value.setAttribute("href", url);
+        });
     }
     function initTwitter() {
         var url = 'http://twitter.com/intent/tweet?source=webclient&text=';
         url += encodeURIComponent(options.twitter.title);
-        url += encodeURIComponent(" " + options.baseURL);
+        url += encodeURIComponent(" " + options.shareURL);
 
-        $("[social=share-twitter]").each(function(index) {
-            $(this).attr("href", url);
+        // get elements with social attribute value
+        var el = document.querySelectorAll('[social="share-twitter"]');
+
+        // loop through elements and set the href attribute
+        forEach(el, function (index, value) {
+            value.setAttribute("href", url);
         });
 
     }
     function initPinterest() {
         var url = 'http://pinterest.com/pin/create/button/?';
-        url += 'url=' + encodeURIComponent(options.baseURL);
-        url += '&media=' + encodeURIComponent(options.baseAssetsURL + options.pinterest.image);
+        url += 'url=' + encodeURIComponent(options.shareURL);
+        url += '&media=' + encodeURIComponent(options.pinterest.image);
         url += '&description=' + encodeURIComponent(options.pinterest.title);
 
-        $("[social=share-pinterest]").each(function(index) {
-            $(this).attr("href", url);
+        // get elements with social attribute value
+        var el = document.querySelectorAll('[social="share-pinterest"]');
+
+        // loop through elements and set the href attribute
+        forEach(el, function (index, value) {
+            value.setAttribute("href", url);
         });
 
     }
     function initInstagram() {
-        $("[social=share-instagram]").each(function(index) {
-            $(this).on('click', function (e) {
+        // get elements with social attribute value
+        var el = document.querySelectorAll('[social="share-instagram"]');
+
+        // loop through elements and add a click event listener
+        forEach(el, function (index, value) {
+            value.addEventListener("click", function(e){
                 popup(e, options.instagram.url);
             });
         });
     }
 
+    // popup method
     function popup(e, href, intWidth, intHeight, blnResize) {
         e.preventDefault();
         intWidth = intWidth || '500';
@@ -101,6 +107,12 @@ window.bl = window.bl || {};
         }
     }
 
+    // forEach method, could be shipped as part of an Object Literal/Module
+    var forEach = function (array, callback, scope) {
+        for (var i = 0; i < array.length; i++) {
+            callback.call(scope, i, array[i]); // passes back stuff we need
+        }
+    };
 
     // public methods
     ns.init = function(settings) {
