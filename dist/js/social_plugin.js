@@ -6,6 +6,13 @@ window.bl = window.bl || {};
     var options = {
         // defeault cat id
         shareURL: 'http://' + window.location.host + window.location.pathname,
+        follow_urls: {
+            facebook: "https://www.facebook.com/Bloomingdales",
+            twitter: "https://twitter.com/BLOOMINGDALES",
+            pinterest: "https://www.pinterest.com/bloomingdales/",
+            instagram: "https://www.instagram.com/bloomingdales/",
+            snapchat: "https://www.snapchat.com/add/bloomingdales"
+        },
         facebook: {
             title: "",
             description: ""
@@ -16,9 +23,6 @@ window.bl = window.bl || {};
         pinterest: {
             title: "",
             image: ""
-        },
-        instagram: {
-            url: "https://www.instagram.com/bloomingdales/"
         }
     };
 
@@ -35,6 +39,7 @@ window.bl = window.bl || {};
         initTwitter();
         initPinterest();
         initInstagram();
+        initSnapchat();
     }
     function initFacebook() {
         var url = 'https://www.facebook.com/sharer/sharer.php';
@@ -48,6 +53,14 @@ window.bl = window.bl || {};
         forEach(el, function (index, value) {
             value.setAttribute("href", url);
         });
+
+        // get elements with social attribute value
+        el = document.querySelectorAll('[social="follow-fb"]');
+
+        // loop through elements and set the href attribute
+        forEach(el, function (index, value) {
+            value.setAttribute("href", options.follow_urls.facebook);
+        });
     }
     function initTwitter() {
         var url = 'http://twitter.com/intent/tweet?source=webclient&text=';
@@ -60,6 +73,14 @@ window.bl = window.bl || {};
         // loop through elements and set the href attribute
         forEach(el, function (index, value) {
             value.setAttribute("href", url);
+        });
+
+        // get elements with social attribute value
+        el = document.querySelectorAll('[social="follow-twitter"]');
+
+        // loop through elements and set the href attribute
+        forEach(el, function (index, value) {
+            value.setAttribute("href", options.follow_urls.twitter);
         });
 
     }
@@ -77,16 +98,33 @@ window.bl = window.bl || {};
             value.setAttribute("href", url);
         });
 
+        // get elements with social attribute value
+        el = document.querySelectorAll('[social="follow-pinterest"]');
+
+        // loop through elements and set the href attribute
+        forEach(el, function (index, value) {
+            value.setAttribute("href", options.follow_urls.pinterest);
+        });
+
     }
     function initInstagram() {
         // get elements with social attribute value
-        var el = document.querySelectorAll('[social="share-instagram"]');
+        var el = document.querySelectorAll('[social="follow-instagram"]');
 
         // loop through elements and add a click event listener
         forEach(el, function (index, value) {
             value.addEventListener("click", function(e){
-                popup(e, options.instagram.url);
+                popup(e, options.follow_urls.instagram);
             });
+        });
+    }
+    function initSnapchat() {
+        // get elements with social attribute value
+        var el = document.querySelectorAll('[social="follow-snapchat"]');
+
+        // loop through elements and set the href attribute
+        forEach(el, function (index, value) {
+            value.setAttribute("href", options.follow_urls.snapchat);
         });
     }
 
