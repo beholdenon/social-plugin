@@ -22,6 +22,7 @@ window.bl = window.bl || {};
         },
         pinterest: {
             title: "",
+            description: "",
             image: ""
         }
     };
